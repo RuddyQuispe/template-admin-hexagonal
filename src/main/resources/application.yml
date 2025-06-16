@@ -1,0 +1,26 @@
+template-admin:
+  security:
+    matcher: /**
+    allowed:
+      - GET
+      - POST
+      - PUT
+    headers:
+      - Authorization
+      - Request-Type
+      - Content-Type
+
+spring:
+  application:
+    name: template-administration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pg-template-admin
+    username: template
+    password: 216042021
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8080

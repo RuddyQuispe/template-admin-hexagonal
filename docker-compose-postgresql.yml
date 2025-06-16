@@ -1,0 +1,11 @@
+version: "1.0"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: pg-template-admin
+      POSTGRES_PASSWORD: 216042021
+      POSTGRES_USER: template
+    ports:
+      - "5432:5432"

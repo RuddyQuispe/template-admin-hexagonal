@@ -1,0 +1,53 @@
+package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
+
+import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
+import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
+import edu.bo.uyunicode.template.admin.domain.dto.request.UserFilterRequestDto;
+import edu.bo.uyunicode.template.admin.domain.dto.request.UserRequestDto;
+import edu.bo.uyunicode.template.admin.domain.dto.response.UserResponseDto;
+import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
+import edu.bo.uyunicode.template.admin.domain.mappers.IUserMapper;
+import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/v1/user")
+@RequiredArgsConstructor
+public class UserController {
+
+    private final IUserServicePort userServicePort;
+    private final IUserMapper userMapper;
+
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponseDto> findById(@PathVariable @NotNull Integer id) {
+        UserResponseDto response = this.userServicePort.findById(id)
+                .map(this.userMapper::toResponse)
+                .orElseThrow(() -> new UserNotFoundException("No existe usuario con id: %s".formatted(id)));
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponseDto> save(@RequestBody @Valid UserRequestDto request) {
+        UserResponseDto response = this.userMapper.toResponse(this.userServicePort.save(this.userMapper.toDto(request)));
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserResponseDto> update(@PathVariable("id") Integer id, @RequestBody @Valid UserRequestDto request) {
+        UserResponseDto response = this.userMapper.toResponse(this.userServicePort.update(id, this.userMapper.toDto(request)));
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponsePaginateDto<UserResponseDto>> findByFilter(@RequestBody @Valid UserFilterRequestDto request) {
+        UserDto filter = this.userMapper.toDto(request.filter());
+        ResponsePaginateDto<UserDto> response = this.userServicePort.findByFilters(filter, request.pagination());
+        ResponsePaginateDto<UserResponseDto> responseUsers = this.userMapper.toResponseFilter(response);
+        return ResponseEntity.ok(responseUsers);
+    }
+}
