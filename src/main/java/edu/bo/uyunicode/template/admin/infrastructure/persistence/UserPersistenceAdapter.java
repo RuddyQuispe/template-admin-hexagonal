@@ -1,11 +1,12 @@
-package edu.bo.uyunicode.template.admin.infrastructure.output.persistence;
+package edu.bo.uyunicode.template.admin.infrastructure.persistence;
 
 import edu.bo.uyunicode.template.admin.application.output.IUserPersistencePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
+import edu.bo.uyunicode.template.admin.domain.entity.UserEntity;
 import edu.bo.uyunicode.template.admin.domain.mappers.IUserMapper;
 import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
 import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
-import edu.bo.uyunicode.template.admin.infrastructure.output.persistence.repository.IUserRepository;
+import edu.bo.uyunicode.template.admin.infrastructure.persistence.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,9 @@ public class UserPersistenceAdapter implements IUserPersistencePort {
 
     @Override
     public UserDto save(UserDto dto) {
-        return this.userMapper.toDto(this.userRepository.save(this.userMapper.toEntity(dto)));
+        UserEntity entity = this.userMapper.toEntity(dto);
+        entity = this.userRepository.save(entity);
+        return this.userMapper.toDto(entity);
     }
 
     @Override

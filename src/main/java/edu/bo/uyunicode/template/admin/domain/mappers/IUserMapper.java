@@ -6,10 +6,11 @@ import edu.bo.uyunicode.template.admin.domain.dto.response.UserResponseDto;
 import edu.bo.uyunicode.template.admin.domain.entity.UserEntity;
 import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface IUserMapper {
     UserEntity toEntity(UserDto dto);
 

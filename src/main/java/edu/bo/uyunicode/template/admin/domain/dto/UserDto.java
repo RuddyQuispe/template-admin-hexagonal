@@ -5,5 +5,5 @@ public record UserDto(
         String nickname,
         String username,
         String password,
-        Boolean enabled) {
+        Boolean isEnabled) {
 }

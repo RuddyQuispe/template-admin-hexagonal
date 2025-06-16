@@ -31,7 +31,7 @@ public class IUserServiceImp implements IUserServicePort {
     public UserDto update(Integer id, UserDto dto) {
         return this.persistencePort.findById(id)
                 .map(u -> {
-                    UserDto userUpdated = new UserDto(dto.userId(), dto.nickname(), dto.username(), dto.password(), dto.enabled());
+                    UserDto userUpdated = new UserDto(dto.userId(), dto.nickname(), dto.username(), dto.password(), dto.isEnabled());
                     return this.persistencePort.save(userUpdated);
                 })
                 .orElseThrow(() -> new UserNotFoundException("Usuario %s no existe para ser modificado".formatted(id)));
