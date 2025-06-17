@@ -9,8 +9,7 @@
 
 ## 📌 Descripción
 
-Este proyecto es un **template de administración** que utiliza **Spring Boot 3.5**, **Java 21** y sigue el patrón de *
-*Arquitectura Hexagonal**.
+Este proyecto es un **template de administración** que utiliza **Spring Boot 3.5**, **Java 21** y sigue el patrón de **Arquitectura Hexagonal**.
 Está diseñado para facilitar el desarrollo de la parte administrativa de un sistema, proporcionando una estructura
 limpia y modular.
 
