@@ -123,6 +123,27 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version> <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+                <configuration>
+                    <source>17</source> <encoding>UTF-8</encoding>
+                    <additionalJOption>--add-opens java.base/java.lang=ALL-UNNAMED</additionalJOption>
+                    <links>
+                        <link>https://docs.spring.io/spring-framework/docs/current/javadoc-api/</link>
+                        <link>https://docs.oracle.com/en/java/javase/17/docs/api/</link>
+                    </links>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

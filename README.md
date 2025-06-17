@@ -81,9 +81,21 @@ Una vez ejecutado, accede a la documentación Swagger en:
    http://localhost:8080/swagger-ui/index.html
    ```
 
+## 📖 Documentación de codigo (Javadoc)
+
+```bash
+   mvn javadoc:jar 
+```
+
+Una vez ejecutado, accede a la documentación en:
+
+```
+   file:///${PROJECT_PATH}/template-administration/target/apidocs/index.html
+```
+
 ## ✅ Estado del Proyecto
 
-- [x] Estructura base del backend
+- [x] Estructura base con Arquitectura Hexagonal
 - [x] Integración con PostgreSQL
 - [x] Documentación Swagger activa
 - [x] Mapeos DTO con MapStruct
