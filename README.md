@@ -25,7 +25,7 @@ limpia y modular.
 - **Swagger / OpenAPI** – para documentación interactiva de APIs
 - **Lombok** – para reducir boilerplate
 - **Spring Validation** – para validaciones de entrada
-- **Maven / Gradle** – gestión de dependencias (según tu elección)
+- **Maven** – gestión de dependencias
 
 ---
 
