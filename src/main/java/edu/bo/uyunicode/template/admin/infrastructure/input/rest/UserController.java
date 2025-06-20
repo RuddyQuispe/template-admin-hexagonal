@@ -2,12 +2,12 @@ package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 
 import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
-import edu.bo.uyunicode.template.admin.domain.dto.request.UserFilterRequestDto;
-import edu.bo.uyunicode.template.admin.domain.dto.request.UserRequestDto;
-import edu.bo.uyunicode.template.admin.domain.dto.response.UserResponseDto;
 import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
-import edu.bo.uyunicode.template.admin.domain.mappers.IUserMapper;
 import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterRequestDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.response.UserResponseDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.mapper.IUserRestMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final IUserServicePort userServicePort;
-    private final IUserMapper userMapper;
+    private final IUserRestMapper userMapper;
 
     @Operation(summary = "Find user by user id", description = "Get data info by user")
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @Operation(summary = "Find all users", description = "Get users by filters and pagination")
-    @GetMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponsePaginateDto<UserResponseDto>> findByFilter(@RequestBody @Valid UserFilterRequestDto request) {
         UserDto filter = this.userMapper.toDto(request.filter());
         ResponsePaginateDto<UserDto> response = this.userServicePort.findByFilters(filter, request.pagination());

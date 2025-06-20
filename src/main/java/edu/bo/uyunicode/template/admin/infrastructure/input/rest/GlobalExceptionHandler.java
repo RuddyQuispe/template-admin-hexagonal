@@ -1,6 +1,6 @@
 package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 
-import edu.bo.uyunicode.template.admin.domain.exceptions.ExceptionResponseDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.ExceptionResponseDto;
 import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

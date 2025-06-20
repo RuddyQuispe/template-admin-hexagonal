@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
         info = @Info(
                 title = "Administration Template API",
                 version = "1.0",
-                description = "WebServices available Template Administration")
-)
+                description = "WebServices available Template Administration"))
 public class OpenApiConfig {
 }

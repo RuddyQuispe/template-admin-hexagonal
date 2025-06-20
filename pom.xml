@@ -137,7 +137,7 @@
             </executions>
                 <configuration>
                     <source>17</source> <encoding>UTF-8</encoding>
-                    <additionalJOption>--add-opens java.base/java.lang=ALL-UNNAMED</additionalJOption>
+                    <additionalJOption>--add-opens java.basebra/java.lang=ALL-UNNAMED</additionalJOption>
                     <links>
                         <link>https://docs.spring.io/spring-framework/docs/current/javadoc-api/</link>
                         <link>https://docs.oracle.com/en/java/javase/17/docs/api/</link>

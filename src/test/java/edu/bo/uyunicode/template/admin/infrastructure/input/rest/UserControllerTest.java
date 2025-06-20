@@ -2,11 +2,13 @@ package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 
 import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
-import edu.bo.uyunicode.template.admin.domain.dto.request.UserFilterRequestDto;
-import edu.bo.uyunicode.template.admin.domain.dto.request.UserRequestDto;
-import edu.bo.uyunicode.template.admin.domain.dto.response.UserResponseDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterRequestDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.response.UserResponseDto;
 import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
-import edu.bo.uyunicode.template.admin.domain.mappers.IUserMapper;
+import edu.bo.uyunicode.template.admin.infrastructure.input.rest.mapper.IUserRestMapper;
+import edu.bo.uyunicode.template.admin.infrastructure.output.persistence.mapper.IUserPersistenceMapper;
 import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
 import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,13 +36,14 @@ class UserControllerTest {
     private IUserServicePort userServicePort;
 
     @Mock
-    private IUserMapper userMapper;
+    private IUserRestMapper userMapper;
 
     @InjectMocks
     private UserController userController;
 
     private UserDto userDto;
     private UserRequestDto userRequestDto;
+    private UserFilterDto userFilterDto;
     private UserResponseDto userResponseDto;
     private RequestPaginator paginator;
     private UserFilterRequestDto filterRequestDto;
@@ -50,9 +53,10 @@ class UserControllerTest {
         // Setup test data
         userDto = new UserDto(1, "nickname1", "username1", "password1", true);
         userRequestDto = new UserRequestDto("nickname1", "username1", "password1", true);
+        userFilterDto = new UserFilterDto(null, null, null, null);
         userResponseDto = new UserResponseDto(1, "nickname1", "username1", true);
         paginator = new RequestPaginator(Direction.ASC, "userId", 0, 10);
-        filterRequestDto = new UserFilterRequestDto(userRequestDto, paginator);
+        filterRequestDto = new UserFilterRequestDto(userFilterDto, paginator);
     }
 
     @Test
@@ -130,7 +134,7 @@ class UserControllerTest {
         ResponsePaginateDto<UserResponseDto> expectedResponse = new ResponsePaginateDto<>(
                 List.of(userResponseDto), 0, 10, 1, 1L);
 
-        when(userMapper.toDto(userRequestDto)).thenReturn(filterDto);
+        when(userMapper.toDto(userFilterDto)).thenReturn(filterDto);
         when(userServicePort.findByFilters(filterDto, paginator)).thenReturn(servicePaginateResponse);
         when(userMapper.toResponseFilter(servicePaginateResponse)).thenReturn(expectedResponse);
 
@@ -140,7 +144,7 @@ class UserControllerTest {
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expectedResponse, response.getBody());
-        verify(userMapper).toDto(userRequestDto);
+        verify(userMapper).toDto(userFilterDto);
         verify(userServicePort).findByFilters(filterDto, paginator);
         verify(userMapper).toResponseFilter(servicePaginateResponse);
     }
