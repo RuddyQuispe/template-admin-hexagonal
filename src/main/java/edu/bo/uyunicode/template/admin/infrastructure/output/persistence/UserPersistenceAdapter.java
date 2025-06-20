@@ -63,7 +63,7 @@ public class UserPersistenceAdapter implements IUserPersistencePort {
     public ResponsePaginateDto<UserDto> findByFilter(UserDto dto, RequestPaginator paginator) {
         Pageable pageable = PageRequest.of(paginator.pageNumber(), paginator.pageSize(), Sort.by(paginator.direction(), paginator.property()));
         Page<UserEntity> usersPage = this.userRepository.findAllByFilters(dto.userId(), dto.nickname(), dto.username(), dto.password(), dto.isEnabled(), pageable);
-        List<UserDto> usersDtoPage = usersPage.getContent().stream().map(this.userMapper::toDto).toList();
+        List<UserDto> usersDtoPage = this.userMapper.toDtos(usersPage.getContent());
         return new ResponsePaginateDto<>(usersDtoPage, 0, 0, 0, 0L);
     }
 }
