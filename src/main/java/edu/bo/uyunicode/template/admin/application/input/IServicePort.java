@@ -1,9 +1,8 @@
 package edu.bo.uyunicode.template.admin.application.input;
 
-import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,5 +18,5 @@ public interface IServicePort<T, K> {
 
     K update(T id, K dto);
 
-    ResponsePaginateDto<K> findByFilters(K filters, RequestPaginator paginator);
+    PaginatedDataDto<K> findByFilters(K filters, PaginationDto paginator);
 }

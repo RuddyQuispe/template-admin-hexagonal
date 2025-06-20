@@ -2,7 +2,7 @@ package edu.bo.uyunicode.template.admin.infrastructure.input.rest.mapper;
 
 
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.response.UserResponseDto;
@@ -24,5 +24,5 @@ public interface IUserRestMapper {
 
     List<UserResponseDto> toResponse(List<UserDto> dtos);
 
-    ResponsePaginateDto<UserResponseDto> toResponseFilter(ResponsePaginateDto<UserDto> responseFilter);
+    PaginatedDataDto<UserResponseDto> toResponseFilter(PaginatedDataDto<UserDto> responseFilter);
 }

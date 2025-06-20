@@ -2,8 +2,8 @@ package edu.bo.uyunicode.template.admin.infrastructure.output.persistence;
 
 import edu.bo.uyunicode.template.admin.application.output.IUserPersistencePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
-import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
 import edu.bo.uyunicode.template.admin.infrastructure.output.persistence.entity.UserEntity;
 import edu.bo.uyunicode.template.admin.infrastructure.output.persistence.mapper.IUserPersistenceMapper;
 import edu.bo.uyunicode.template.admin.infrastructure.output.persistence.repository.IUserRepository;
@@ -60,10 +60,10 @@ public class UserPersistenceAdapter implements IUserPersistencePort {
      * @return users with pagination num
      */
     @Override
-    public ResponsePaginateDto<UserDto> findByFilter(UserDto dto, RequestPaginator paginator) {
+    public PaginatedDataDto<UserDto> findByFilter(UserDto dto, PaginationDto paginator) {
         Pageable pageable = PageRequest.of(paginator.pageNumber(), paginator.pageSize(), Sort.by(paginator.direction(), paginator.property()));
         Page<UserEntity> usersPage = this.userRepository.findAllByFilters(dto.userId(), dto.nickname(), dto.username(), dto.password(), dto.isEnabled(), pageable);
         List<UserDto> usersDtoPage = this.userMapper.toDtos(usersPage.getContent());
-        return new ResponsePaginateDto<>(usersDtoPage, 0, 0, 0, 0L);
+        return new PaginatedDataDto<>(usersDtoPage, 0, 0, 0, 0L);
     }
 }

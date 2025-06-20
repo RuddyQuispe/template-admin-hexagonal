@@ -3,7 +3,7 @@ package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
 import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.response.UserResponseDto;
@@ -49,10 +49,10 @@ public class UserController {
 
     @Operation(summary = "Find all users", description = "Get users by filters and pagination")
     @PostMapping(path = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponsePaginateDto<UserResponseDto>> findByFilter(@RequestBody @Valid UserFilterRequestDto request) {
+    public ResponseEntity<PaginatedDataDto<UserResponseDto>> findByFilter(@RequestBody @Valid UserFilterRequestDto request) {
         UserDto filter = this.userMapper.toDto(request.filter());
-        ResponsePaginateDto<UserDto> response = this.userServicePort.findByFilters(filter, request.pagination());
-        ResponsePaginateDto<UserResponseDto> responseUsers = this.userMapper.toResponseFilter(response);
+        PaginatedDataDto<UserDto> response = this.userServicePort.findByFilters(filter, request.pagination());
+        PaginatedDataDto<UserResponseDto> responseUsers = this.userMapper.toResponseFilter(response);
         return ResponseEntity.ok(responseUsers);
     }
 }

@@ -1,6 +1,6 @@
 package edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request;
 
-import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
+import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +14,6 @@ public record UserFilterRequestDto(
         UserFilterDto filter,
         @Valid
         @NotNull(message = "pagination requerido")
-        RequestPaginator pagination) implements Serializable {
+        PaginationDto pagination) implements Serializable {
 
 }

@@ -1,7 +1,7 @@
 package edu.bo.uyunicode.template.admin.application.output;
 
-import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
 
 import java.util.Optional;
 
@@ -16,5 +16,5 @@ public interface IPersistencePort<T, K> {
 
     K save(K dto);
 
-    ResponsePaginateDto<K> findByFilter(K dto, RequestPaginator paginator);
+    PaginatedDataDto<K> findByFilter(K dto, PaginationDto paginator);
 }

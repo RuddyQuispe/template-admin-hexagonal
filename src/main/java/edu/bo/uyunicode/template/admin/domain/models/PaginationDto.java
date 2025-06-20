@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort.Direction;
 
 import java.io.Serializable;
 
-public record RequestPaginator(
+public record PaginationDto(
         @NotNull(message = "direction requerido")
         Direction direction,
         @NotNull(message = "property requerido")

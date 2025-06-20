@@ -4,8 +4,8 @@ import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
 import edu.bo.uyunicode.template.admin.application.output.IUserPersistencePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
 import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
-import edu.bo.uyunicode.template.admin.domain.models.RequestPaginator;
-import edu.bo.uyunicode.template.admin.domain.models.ResponsePaginateDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
+import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +67,7 @@ public class IUserServiceImp implements IUserServicePort {
      * @return list of users with page data
      */
     @Override
-    public ResponsePaginateDto<UserDto> findByFilters(UserDto filters, RequestPaginator paginator) {
+    public PaginatedDataDto<UserDto> findByFilters(UserDto filters, PaginationDto paginator) {
         return this.persistencePort.findByFilter(filters, paginator);
     }
 }
