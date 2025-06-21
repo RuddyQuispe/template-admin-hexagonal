@@ -7,7 +7,7 @@ import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.Use
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.response.UserResponseDto;
-import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
+import edu.bo.uyunicode.template.admin.domain.exceptions.ModelNotFoundException;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.mapper.IUserRestMapper;
 import edu.bo.uyunicode.template.admin.domain.models.PaginationDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,7 +82,7 @@ class UserControllerTest {
         when(userServicePort.findById(userId)).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(UserNotFoundException.class, () -> userController.findById(userId));
+        assertThrows(ModelNotFoundException.class, () -> userController.findById(userId));
         verify(userServicePort).findById(userId);
         verify(userMapper, never()).toResponse(any(UserDto.class));
     }

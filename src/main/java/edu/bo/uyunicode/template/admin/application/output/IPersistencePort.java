@@ -12,9 +12,9 @@ import java.util.Optional;
  * @param <K> DTO object
  */
 public interface IPersistencePort<T, K> {
-    Optional<K> findById(T id);
+    Optional<T> findById(K id);
 
-    K save(K dto);
+    T save(T dto);
 
-    PaginatedDataDto<K> findByFilter(K dto, PaginationDto paginator);
+    PaginatedDataDto<T> findByFilter(T dto, PaginationDto paginator);
 }

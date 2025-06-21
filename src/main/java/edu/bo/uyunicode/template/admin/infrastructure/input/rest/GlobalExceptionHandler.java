@@ -1,7 +1,7 @@
 package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.ExceptionResponseDto;
-import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
+import edu.bo.uyunicode.template.admin.domain.exceptions.ModelNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ import java.util.List;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ExceptionResponseDto> handleNotFoundException(UserNotFoundException e, WebRequest request) {
+    @ExceptionHandler(ModelNotFoundException.class)
+    public ResponseEntity<ExceptionResponseDto> handleModelNotFoundException(ModelNotFoundException e, WebRequest request) {
         ExceptionResponseDto error = new ExceptionResponseDto(LocalDateTime.now(), e.getMessage(), null);
-        log.error("UserNotFoundException :{0} ", new Object[]{error});
+        log.error("ModelNotFoundException :{0} ", new Object[]{error});
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 

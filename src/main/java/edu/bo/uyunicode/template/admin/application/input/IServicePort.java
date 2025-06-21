@@ -8,15 +8,15 @@ import java.util.Optional;
 /**
  * service ports standard
  *
- * @param <T> Id Object
- * @param <K> DTO object
+ * @param <K> Id Object
+ * @param <T> DTO object
  */
 public interface IServicePort<T, K> {
-    Optional<K> findById(T id);
+    Optional<T> findById(K id);
 
-    K save(K dto);
+    T save(T dto);
 
-    K update(T id, K dto);
+    T update(K id, T dto);
 
-    PaginatedDataDto<K> findByFilters(K filters, PaginationDto paginator);
+    PaginatedDataDto<T> findByFilters(T filters, PaginationDto paginator);
 }

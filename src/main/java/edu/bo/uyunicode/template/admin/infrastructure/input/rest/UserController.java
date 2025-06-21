@@ -2,7 +2,7 @@ package edu.bo.uyunicode.template.admin.infrastructure.input.rest;
 
 import edu.bo.uyunicode.template.admin.application.input.IUserServicePort;
 import edu.bo.uyunicode.template.admin.domain.dto.UserDto;
-import edu.bo.uyunicode.template.admin.domain.exceptions.UserNotFoundException;
+import edu.bo.uyunicode.template.admin.domain.exceptions.ModelNotFoundException;
 import edu.bo.uyunicode.template.admin.domain.models.PaginatedDataDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserFilterRequestDto;
 import edu.bo.uyunicode.template.admin.infrastructure.input.rest.dto.request.UserRequestDto;
@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<UserResponseDto> findById(@PathVariable @NotNull Integer id) {
         UserResponseDto response = this.userServicePort.findById(id)
                 .map(this.userMapper::toResponse)
-                .orElseThrow(() -> new UserNotFoundException("No existe usuario con id: %s".formatted(id)));
+                .orElseThrow(() -> new ModelNotFoundException("No existe usuario con id: %s".formatted(id)));
         return ResponseEntity.ok(response);
     }
 
